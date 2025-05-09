@@ -52,29 +52,34 @@ const PublicRoute = ({ children }: { children: JSX.Element }) => {
   return children;
 };
 
-const AppRoutes = () => (
-  <>
-    <Navigation />
-    <div className="md:ml-64 pb-16 md:pb-0 min-h-screen">
-      <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<PublicRoute><Index /></PublicRoute>} />
-        <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
-        <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
-        
-        {/* Protected routes */}
-        <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-        <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
-        <Route path="/add-task" element={<ProtectedRoute><AddTaskPage /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-        <Route path="/subscription" element={<ProtectedRoute><SubscriptionPage /></ProtectedRoute>} />
-        
-        {/* 404 route */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
-  </>
-);
+const AppRoutes = () => {
+  const { user } = useAuth();
+  const showNavigation = user; // Only show navigation for authenticated users
+  
+  return (
+    <>
+      {showNavigation && <Navigation />}
+      <div className={`${showNavigation ? 'md:ml-64 pb-16 md:pb-0' : ''} min-h-screen`}>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<PublicRoute><Index /></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+          <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+          
+          {/* Protected routes */}
+          <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+          <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
+          <Route path="/add-task" element={<ProtectedRoute><AddTaskPage /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+          <Route path="/subscription" element={<ProtectedRoute><SubscriptionPage /></ProtectedRoute>} />
+          
+          {/* 404 route */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { ArrowLeft } from 'lucide-react';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -28,9 +29,15 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
-      <div className="w-full max-w-md animate-fade-in">
-        <Card className="shadow-lg border-primary/10">
+    <div className="min-h-screen flex flex-col p-4 bg-muted/30">
+      <div className="w-full max-w-md mx-auto mt-8">
+        <div className="mb-6">
+          <Link to="/" className="inline-flex items-center text-sm text-primary hover:underline">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Home
+          </Link>
+        </div>
+        <Card className="shadow-lg border-primary/10 animate-fade-in">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center">Create an account</CardTitle>
             <CardDescription className="text-center">
